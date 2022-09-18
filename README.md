@@ -1,4 +1,5 @@
 # vue-modal-city
+This is a simple vue modal window. It works through the yandex geocoder API
 
 ## Project setup
 ```
