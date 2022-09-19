@@ -1,47 +1,42 @@
 <template>
   <div class="modal__city-box">
-    <div class="modal__city-esc">
-      <div class="modal__city-x">
-        <svg
-          id="x-1"
-          width="18"
-          height="18"
-          viewBox="0 0 18 18"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M1.45312 16.5469L16.5469 1.45337"
-            stroke="white"
-            stroke-width="2"
-            stroke-linecap="round"
-          />
-        </svg>
-        <svg
-          id="x-2"
-          width="18"
-          height="18"
-          viewBox="0 0 18 18"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M1.45325 1.45312L16.5468 16.5469"
-            stroke="white"
-            stroke-width="2"
-            stroke-linecap="round"
-          />
-        </svg>
-      </div>
-    </div>
+    <EscButton/>
     <h2 class="modal__city-title">Выберите город</h2>
-    <input class="modal__city-input" type="text" />
+    <MyInput 
+    v-bind:value="search"
+    @input="getCities"/>
+    <CityList :cities="cities"/>
   </div>
 </template>
 
 <script>
+import MyInput from "./UI/MyInput.vue"
+import EscButton from "./UI/EscButton.vue";
+import CityList from "./CityList.vue";
+
 export default {
   name: "CityModal",
+  components:{
+    MyInput,
+    EscButton,
+    CityList,
+},
+  data(){
+    return{
+      search: '',
+      cities:[],
+    }
+  },
+  methods: {
+    getCities(event) {
+      this.search = event.target.value;
+      // async function getCities(search){
+        // await 
+        // return [cities]
+      // }
+      // this.cities = setTimeout(getCities(this.search),500)
+    },
+  },
 };
 </script>
 
@@ -49,13 +44,13 @@ export default {
 .modal__city-box {
   position: absolute;
   display: flex;
+  padding: 60px 70px;
   width: 570px;
   top: 50px;
   bottom: 50px;
   left: 50%;
   transform: translateX(-50%);
   flex-direction: column;
-  // background: #FFFFFF;
   border-radius: 10px;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
   @media (max-width: 570px) {
@@ -68,44 +63,8 @@ export default {
   }
 }
 
-.modal__city-esc {
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  right: -70px;
-  top: 0px;
-  background: #65c6a2;
-  border-radius: 50%;
-
-  cursor: pointer;
-  @media (max-width: 570px) {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    background-color: #65c6a2;
-  }
-}
-
-.modal__city-x {
-  position: absolute;
-  left: 20px;
-  top: 20px;
-}
-
-#x-2 {
-  position: absolute;
-  left: -7.55px;
-  top: -7.55px;
-}
-
-#x-1 {
-  position: absolute;
-  left: -7.55px;
-  top: -7.55px;
-}
 
 .modal__city-title {
-  position: absolute;
   display: flex;
   width: 270px;
   height: 30px;
@@ -119,11 +78,15 @@ export default {
   color: #5e50a2;
 }
 
-.modal__city-input {
-  position: absolute;
-  width: 430.09px;
-  height: 56px;
-  left: 70px;
-  top: 120px;
+.modal__city-text {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 156%;
+
+  color: #212121;
 }
+
+
 </style>
